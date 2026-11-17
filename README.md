@@ -257,27 +257,3 @@ node test-api.js
    - `AI_MODEL`: `gemini-1.5-flash`
 6. Deploy the web service and copy the provided URL (e.g. `https://crm-api.onrender.com`).
 
-### Frontend: Vercel
-1. Log in to [Vercel](https://vercel.com/) and click **Add New ➔ Project**.
-2. Import your GitHub repository.
-3. Keep the Root Directory as `./` (Vercel automatically detects Vite).
-4. Under **Environment Variables**, add:
-   - `VITE_API_URL`: `https://crm-api.onrender.com/api` (your Render backend URL with `/api`)
-5. Click **Deploy**.
-
----
-
-## 💡 How to Explain this Project in an Interview
-
-Here are key design decisions you can highlight during your interview:
-
-1. **Clean Separation of Concerns**: 
-   - Express controllers handle HTTP requests/responses, Mongoose models manage schema validation, and services encapsulate third-party AI logic.
-2. **Security & Data Isolation**:
-   - Sensitive user passwords are never stored in plain text; they are salted and hashed using `bcryptjs`.
-   - Every database query strictly filters by `userId: req.user._id`, ensuring complete tenant isolation.
-   - The AI API key is kept securely on the server and is never exposed to the frontend.
-3. **Native HTML5 Drag and Drop**:
-   - Rather than installing large drag-and-drop third-party libraries, the Kanban board leverages native browser `dragstart`, `dragover`, and `drop` events with optimistic UI updates for high performance and low bundle size.
-4. **Resilient AI Service**:
-   - The AI service prompts the LLM to output strict JSON (`{ "subject", "body" }`) and includes regex fallback parsing to guarantee reliable drafts.
